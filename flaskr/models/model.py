@@ -12,12 +12,22 @@ all_users = db.child("users").get()
 # GET all Channels
 all_channels = db.child("channels").get()
 
+# GET all Images
+all_images = db.child("images").get()
+
 # GET User
 
 
 def fetch_user(username):
     user_info = db.child("users/" + username).get()
     return user_info.val()
+
+# GET Image
+
+
+def fetch_image(id):
+    image_info = db.child("images/" + id).get()
+    return image_info.val()
 
 
 # POST User
@@ -62,3 +72,22 @@ def post_channel():
             "channel_picture": channel_picture, "description": description}
     send_channel = db.child("channels").child(data['channel_name']).set(data)
     return send_channel
+
+# POST Image
+
+
+def post_image():
+    req_data = request.get_json()
+
+    caption = req_data['caption']
+    id = req_data['id']
+    created_at = req_data['created_at']
+    event_img = req_data['event_img']
+    geolocation = req_data['geolocation']
+    relevant_channels = req_data['relevant_channels']
+    username = req_data['username']
+
+    data = {"caption": caption, "created_at": created_at, "event_img": event_img,
+            "geolocation": geolocation, "relevant_channels": relevant_channels, "username": username, "id": id}
+    send_image = db.child("images").child(data['id']).set(data)
+    return send_image
