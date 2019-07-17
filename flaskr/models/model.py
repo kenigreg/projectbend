@@ -38,9 +38,13 @@ def query():
     email = req_data['email']
     username = req_data['username']
     password = req_data['password']
+    avatar = req_data['avatar']
+    subscribed_channels = req_data['subscribed_channels']
+    geolocation = req_data['geolocation']
+    notifications = req_data['notifications']
 
-    data = {"email": email, "username": username,
-            "password": password, "name": name}
+    data = {"email": email, "username": username, "password": password, "name": name, "notifications": notifications,
+            "avatar": avatar, "subscribed_channels": subscribed_channels, "geolocation": geolocation}
     send_user = db.child("users").child(data['username']).set(data)
     return send_user
 
