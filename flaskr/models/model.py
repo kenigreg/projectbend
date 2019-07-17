@@ -42,9 +42,10 @@ def query():
     subscribed_channels = req_data['subscribed_channels']
     geolocation = req_data['geolocation']
     notifications = req_data['notifications']
+    token = req_data['token']
 
     data = {"email": email, "username": username, "password": password, "name": name, "notifications": notifications,
-            "avatar": avatar, "subscribed_channels": subscribed_channels, "geolocation": geolocation}
+            "avatar": avatar, "subscribed_channels": subscribed_channels, "geolocation": geolocation, "token": token}
     send_user = db.child("users").child(data['username']).set(data)
     return send_user
 
